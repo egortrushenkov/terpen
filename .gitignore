@@ -1,0 +1,8 @@
+/cgi-bin/
+.idea/
+.git/
+/bitrix/
+/upload/
+/local/log/
+restore.php
+test.php
