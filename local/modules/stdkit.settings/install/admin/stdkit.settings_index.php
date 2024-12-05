@@ -45,8 +45,8 @@
 					array( "main_phone", "Телефон", "", array( "text" ) ),
 					array( "email", "Email общий", "", array( "text" ) ),
 
-					"Footer",
-					array( "footer_slogan", "Текст в подвале", "", array( "text" ) ),
+					/*"Footer",
+					array( "footer_slogan", "Текст в подвале", "", array( "text" ) ),*/
 
 					/*"Соцсети/Мессенджеры",
 					array( "telegram", "Telegram", "", array( "text" ) ),
