@@ -2,5 +2,5 @@
 
 обработчик форм пожизненно
 ```
-    - ajax/php/submit-handler.php
+    /ajax/php/submit-handler.php
 ```
