@@ -103,6 +103,48 @@ function t_me($tgText, $files=false, $chats_id = ["-1001976568863"], $thread_id 
 }
 /**************************** /telegram **********************************/
 
+/**************************** b24 **********************************/
+function sendB24($action = "crm.lead.add.json", $data)
+{
+	$url = "https://ДОМЕН.bitrix24.ru/rest/ID REST/ХУК/".$action;
+
+	$obCurl = curl_init();
+	curl_setopt($obCurl, CURLOPT_URL, $url);
+	curl_setopt($obCurl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($obCurl, CURLOPT_POST, true);
+	curl_setopt($obCurl, CURLOPT_POSTFIELDS, $data);
+
+	$out = curl_exec($obCurl);
+	curl_close($obCurl);
+
+	return $out;
+}
+
+function b24AddLead($data)
+{
+	$urlParamsArr = array();
+	$urlParamsArr['FIELDS[NAME]'] = $data['NAME'];
+	$urlParamsArr['FIELDS[PHONE][0][VALUE]'] = $data['PHONE'];
+	$urlParamsArr['FIELDS[PHONE][0][VALUE_TYPE]'] = 'WORK';
+	$res_contact = sendB24("crm.contact.add", $urlParamsArr);
+
+	$urlParamsArr = array();
+	$urlParamsArr['FIELDS[TITLE]'] = $data['TITLE'];
+	$urlParamsArr['FIELDS[SOURCE_ID]'] = 'WEB';
+	$urlParamsArr['FIELDS[CONTACT_ID]'] = json_decode($res_contact)->result;
+	$res_deal = sendB24('crm.deal.add.json', $urlParamsArr);
+
+
+	$comment = str_replace("%0A", "\r\n", $data['COMMENT']);
+	$urlParamsArr = array();
+	$urlParamsArr['fields[ENTITY_ID]'] = json_decode($res_deal)->result;
+	$urlParamsArr['fields[ENTITY_TYPE]'] = 'deal';
+	$urlParamsArr['fields[COMMENT]'] = $comment;
+	sendB24('crm.timeline.comment.add', $urlParamsArr);
+
+}
+/**************************** /b24 **********************************/
+
 /**************************** YouTUBE **********************************/
 	function getYoutubeThumbnail($url, $size = "maxresdefault"):string {
 		$video_id = explode("?v=", $url);
