@@ -1,5 +1,7 @@
 <?php
 
+	namespace lib;
+
 	use \Bitrix\Main\Loader,
 		\Bitrix\Highloadblock\HighloadBlockTable as HLBT;
 	Loader::includeModule('highloadblock');
