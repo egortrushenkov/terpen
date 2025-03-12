@@ -14,12 +14,12 @@ if(!$arResult["NavShowAlways"])
 		return;
 }
 
-
-$default = 'btn size-7 sm:size-10 rounded shrink-0 font-semibold btn-grey dark:btn-gray btn-contur text-black/60 dark:text-white/60';
-$dots = 'btn size-7 sm:size-10 rounded shrink-0 font-semibold btn-grey dark:btn-gray text-black/60 dark:text-white/60 items-end';
-$select = 'btn size-7 sm:size-10 rounded shrink-0 font-semibold btn-primary btn-fill pointer-events-none';
+$static = 'btn rounded-lg sm:rounded-xl size-8 sm:size-10 text-sm sm:text-base shrink-0 font-normal ';
+$default = 'btn-white btn-fill text-black opacity-60';
+$dots = 'text-black opacity-60 items-end';
+$select = 'btn-primary btn-fill pointer-events-none';
 ?>
-<div class="flex items-center justify-center gap-2 mt-8 sm:gap-4 lg:justify-stretch">
+<div class="flex items-center justify-center gap-2 mt-8 lg:justify-stretch sm:gap-4 sm:mt-11 lg:mt-14">
 <?
 $strNavQueryString = ($arResult["NavQueryString"] != "" ? $arResult["NavQueryString"]."&amp;" : "");
 $strNavQueryStringFull = ($arResult["NavQueryString"] != "" ? "?".$arResult["NavQueryString"] : "");
@@ -29,16 +29,22 @@ $strNavQueryStringFull = ($arResult["NavQueryString"] != "" ? "?".$arResult["Nav
 	if ($arResult["NavPageNomer"] > 1):
 		if($arResult["bSavePage"]):
 			?>
-			<a class="<?=$select?>" data-waved="light" draggable="false" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]-1)?>"><?=\lib\Kit::icon('arrow-left', 'icon text-sm')?></a>
+			<a class="<?=$static?><?=$select?>" data-waved="light" draggable="false" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]-1)?>">
+				<? \lib\KitTPL::icon("{id: 'arrow-prev', className: 'icon text-lg sm:text-xl', data: false}") ?>
+			</a>
 			<?
 		else:
 			if ($arResult["NavPageNomer"] > 2):
 				?>
-				<a class="<?=$default?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]-1)?>"><?=\lib\Kit::icon('arrow-left', 'icon text-sm')?></a>
+				<a class="<?=$static?><?=$default?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]-1)?>">
+					<? \lib\KitTPL::icon("{id: 'arrow-prev', className: 'icon text-lg sm:text-xl', data: false}") ?>
+				</a>
 				<?
 			else:
 				?>
-				<a class="<?=$default?>" href="<?=$arResult["sUrlPath"]?><?=$strNavQueryStringFull?>"><?=\lib\Kit::icon('arrow-left', 'icon text-sm')?></a>
+				<a class="<?=$default?>" href="<?=$arResult["sUrlPath"]?><?=$strNavQueryStringFull?>">
+					<? \lib\KitTPL::icon("{id: 'arrow-prev', className: 'icon text-lg sm:text-xl', data: false}") ?>
+				</a>
 				<?
 			endif;
 
@@ -48,16 +54,16 @@ $strNavQueryStringFull = ($arResult["NavQueryString"] != "" ? "?".$arResult["Nav
 			$bFirst = false;
 			if($arResult["bSavePage"]):
 				?>
-				<a class="<?=$select?>" data-waved="light" draggable="false"  href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=1">1</a>
+				<a class="<?=$static?><?=$select?>" data-waved="light" draggable="false"  href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=1">1</a>
 				<?
 			else:
 				?>
-				<a class="<?=$default?>" data-waved="light" draggable="false"  href="<?=$arResult["sUrlPath"]?><?=$strNavQueryStringFull?>">1</a>
+				<a class="<?=$static?><?=$default?>" data-waved="light" draggable="false"  href="<?=$arResult["sUrlPath"]?><?=$strNavQueryStringFull?>">1</a>
 				<?
 			endif;
 			if ($arResult["nStartPage"] > 2):
 				?>
-				<a class="<?=$dots?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=round($arResult["nStartPage"] / 2)?>">...</a>
+				<a class="<?=$static?><?=$dots?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=round($arResult["nStartPage"] / 2)?>">...</a>
 				<?
 			endif;
 		endif;
@@ -67,16 +73,16 @@ $strNavQueryStringFull = ($arResult["NavQueryString"] != "" ? "?".$arResult["Nav
 	{
 		if ($arResult["nStartPage"] == $arResult["NavPageNomer"]):
 			?>
-			<span class="<?=$select?>" data-waved="light" draggable="false" ><?=$arResult["nStartPage"]?></span>
+			<span class="<?=$static?><?=$select?>" data-waved="light" draggable="false" ><?=$arResult["nStartPage"]?></span>
 			<?
 		elseif($arResult["nStartPage"] == 1 && $arResult["bSavePage"] == false):
 			?>
-			<a href="<?=$arResult["sUrlPath"]?><?=$strNavQueryStringFull?>" class="<?=$default?>" data-waved="light" draggable="false" ><?=$arResult["nStartPage"]?></a>
+			<a class="<?=$static?><?=$default?>" href="<?=$arResult["sUrlPath"]?><?=$strNavQueryStringFull?>" data-waved="light" draggable="false" ><?=$arResult["nStartPage"]?></a>
 			<?
 		else:
 			?>
-			<a href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=$arResult["nStartPage"]?>"<?
-			?> class="<?=$default?><?=($bFirst ? "modern-page-first" : "")?>" data-waved="light" draggable="false" ><?=$arResult["nStartPage"]?></a>
+			<a class="<?=$static?><?=$default?><?=($bFirst ? "modern-page-first" : "")?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=$arResult["nStartPage"]?>"<?
+			?> data-waved="light" draggable="false" ><?=$arResult["nStartPage"]?></a>
 			<?
 		endif;
 		$arResult["nStartPage"]++;
@@ -87,12 +93,12 @@ $strNavQueryStringFull = ($arResult["NavQueryString"] != "" ? "?".$arResult["Nav
 		if ($arResult["nEndPage"] < $arResult["NavPageCount"]):
 			if ($arResult["nEndPage"] < ($arResult["NavPageCount"] - 1)):
 				?>
-				<a class="<?=$dots?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=round($arResult["nEndPage"] + ($arResult["NavPageCount"] - $arResult["nEndPage"]) / 2)?>" data-waved="light" draggable="false">...</a>
+				<a class="<?=$static?><?=$dots?>" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=round($arResult["nEndPage"] + ($arResult["NavPageCount"] - $arResult["nEndPage"]) / 2)?>" data-waved="light" draggable="false">...</a>
 			<? endif; ?>
-			<a class="<?=$default?>" data-waved="light" draggable="false" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=$arResult["NavPageCount"]?>"><?=$arResult["NavPageCount"]?></a>
+			<a class="<?=$static?><?=$default?>" data-waved="light" draggable="false" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=$arResult["NavPageCount"]?>"><?=$arResult["NavPageCount"]?></a>
 		<? endif; ?>
-		<a class="<?=$default?>" data-waved="light" draggable="false" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]+1)?>">
-			<?=\lib\Kit::icon('arrow-right', 'icon text-sm')?>
+		<a class="<?=$static?><?=$default?>" data-waved="light" draggable="false" href="<?=$arResult["sUrlPath"]?>?<?=$strNavQueryString?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]+1)?>">
+			<? \lib\KitTPL::icon("{id: 'arrow-next', className: 'icon text-lg sm:text-xl', data: false}") ?>
 		</a>
 		<?
 	endif;
