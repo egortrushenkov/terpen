@@ -165,3 +165,43 @@ function b24AddLead($data)
 		return $thumbnail_url;
 	}
 /**************************** /YouTUBE **********************************/
+
+
+/**************************** FeedBackURL **********************************/
+	function feedbackurl($params = [] )
+	{
+		global $APPLICATION;
+
+		/**
+		 * Поля которые могут быть в $params
+		 * PAGE - обязательный но если пришёл пустой то установится автоматически
+		 * TITLE
+		 * CRM_TITLE
+		 * BTN_NAME
+		 * IMG
+		 */
+
+		// Обработка обязательного параметра PAGE
+	    $defaultParams = [
+	        'PAGE' => $APPLICATION->GetCurPage(false),
+	        'TITLE' => '',
+	        'CRM_TITLE' => '',
+	        'BTN_NAME' => '',
+	        'IMG' => ''
+	    ];
+
+		// Объединение переданных параметров с параметрами по умолчанию
+        $mergedParams = array_merge($defaultParams, $params);
+
+		// Фильтрация параметров - удаляем пустые значения (кроме PAGE)
+	    $filteredParams = array_filter($mergedParams, function($value, $key) {
+	        return ($key === 'PAGE') || !empty($value);
+	    }, ARRAY_FILTER_USE_BOTH);
+
+		// Кодирование параметров для URL
+        $encodedParams = http_build_query(['PARAMS' => $filteredParams]);
+
+		// Формирование итогового URL
+        return '/ajax/dialogs/dialog-feedback.php?' . $encodedParams;
+	}
+/**************************** /FeedBackURL **********************************/
