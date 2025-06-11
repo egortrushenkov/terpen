@@ -75,6 +75,7 @@ class KitTPL
 	private static function _picture($json){
 		$src = $json['src'];
 		$format=$json['format']?:'url';
+		if($format != 'url') $src = SITE_TEMPLATE_PATH."/".$src;
 		$className=$json['className']?:"image";
 		$data = $json['data']?:false;
 		switch ($format){
