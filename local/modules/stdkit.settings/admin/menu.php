@@ -17,8 +17,8 @@
 			$arMenu = array( "menu_id" => "kit-menu", "items_id" => "menu_references", 'text' => Loc::getMessage( 'KIT_MENU_TITLE' ),//описание из файла локализации
 				'title' => Loc::getMessage( 'KIT_MENU_TITLE' ),//название из файла локализации
 				"sort" => 10, "items" => array( //Настройки
-					array( "text" => Loc::getMessage( 'KIT_SUBMENU_0_TITLE' ), "sort" => 20, "url" => "/bitrix/admin/" . $moduleName . "_index.php?lang=" . LANGUAGE_ID, "items_id" => "MOD_main", )
-					//array( "text" => Loc::getMessage( 'KIT_SUBMENU_2_TITLE' ), "sort" => 20, "url" => "/bitrix/admin/" . $moduleName . "_index2.php?lang=" . LANGUAGE_ID, "items_id" => "MOD_self0", ),
+					array( "text" => Loc::getMessage( 'KIT_SUBMENU_0_TITLE' ), "sort" => 20, "url" => "/bitrix/admin/" . $moduleName . "_index.php?lang=" . LANGUAGE_ID, "items_id" => "MOD_main", ),
+					array( "text" => "Политика", "sort" => 20, "url" => "/bitrix/admin/" . $moduleName . "_politic.php?lang=" . LANGUAGE_ID, "items_id" => "MOD_politic", ),
 				),
 			);
 			$arGlobalMenu[] = $arMenu;

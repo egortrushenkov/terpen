@@ -5,7 +5,7 @@
 	require_once $_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . $module_id . '/lib/functions.php';
 
 	use Bitrix\Main\Localization\Loc;
-	use    Bitrix\Main\HttpApplication;
+	use Bitrix\Main\HttpApplication;
 	use Bitrix\Main\Loader;
 	use Bitrix\Main\Config\Option;
 
@@ -61,16 +61,6 @@
 					array( "main_video", "Видео на главной", "", array( "text" ) ),*/
 				)
 			),
-			/*array(
-				"DIV" => "edit1",
-				"TAB" => "Отдел кадров",
-				"TITLE" => "Отдел кадров вакансии",
-				"OPTIONS" => array(
-					array( "vacant_name", "Имя", "", array( "textarea", 5, 52 ) ),
-					array( "vacant_phone", "Телефоны", "", array( "textarea", 5, 52 ) ),
-					array( "vacant_email", "E-mail", "", array( "text" ) )
-				)
-			),*/
 
 		);
 		$tabControl = new CAdminTabControl( "tabControl", $aTabs );
