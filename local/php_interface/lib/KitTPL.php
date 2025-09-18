@@ -76,8 +76,11 @@ class KitTPL
 		$src = $json['src'];
 		$format=$json['format']?:'url';
 		if($format != 'url') $src = SITE_TEMPLATE_PATH."/".$src;
-		$className=$json['className']?:"image";
+		$className=$json['className']?:"";
 		$data = $json['data']?:false;
+		$alt = $json['alt'] ?? "";
+		$block_webp = $json['block_webp'] ?? "";
+
 		switch ($format){
 			case 'jpg':
 				$loading = 'lazy';
@@ -86,15 +89,28 @@ class KitTPL
 				$loading = 'eager';
 				break;
 			default:
-				$loading = 'auto';
+				$loading = false;
 				break;
+		}
+
+		// Генерация webp для локальных картинок в режиме url
+		$webpSrc = false;
+		if ($format === 'url' && $src !== '' && str_starts_with($src, '/')) {
+			if (function_exists('makeWebp')) {
+				$generated = makeWebp($src);
+				if ($generated) {
+					$webpSrc = $generated;
+				}
+			}
 		}
 		?>
 		<picture>
 			<? if ($src !== '' && ($format === 'jpg' || $format === 'png')) { ?>
 				<source srcset="<?=$src?>.webp" type="image/webp">
-			<?}?>
-			<img class="<?= $className ?>" <?= $data ? $data : '' ?> draggable="false" loading="<?= $loading ?>" src="<?= $format !== 'url' ? $src.".".$format : $src ?>" alt="">
+			<? } elseif ($format === 'url' && $webpSrc && !$block_webp) { ?>
+				<source srcset="<?= $webpSrc ?>" type="image/webp">
+			<? } ?>
+			<img class="<?= $className ?>" <?= $data ? $data : '' ?> draggable="false" <?if($loading){?>loading="<?= $loading ?>"<?}?> src="<?= $format !== 'url' ? $src.".".$format : $src ?>" alt="<?= htmlspecialchars($alt, ENT_QUOTES) ?>">
 		</picture>
 		<?php
 	}
