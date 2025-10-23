@@ -122,6 +122,8 @@ function sendB24($action = "crm.lead.add.json", $data)
 
 function b24AddLead($data)
 {
+	$ENTITY_TYPE = 'lead'; // lead|deal ставь нужное
+
 	$urlParamsArr = array();
 	$urlParamsArr['FIELDS[NAME]'] = $data['NAME'];
 	$urlParamsArr['FIELDS[PHONE][0][VALUE]'] = $data['PHONE'];
@@ -129,16 +131,17 @@ function b24AddLead($data)
 	$res_contact = sendB24("crm.contact.add", $urlParamsArr);
 
 	$urlParamsArr = array();
-	$urlParamsArr['FIELDS[TITLE]'] = $data['TITLE'];
+	$urlParamsArr['FIELDS[TITLE]'] = $data['TITLE'] ?: 'Заявка с сайта';
 	$urlParamsArr['FIELDS[SOURCE_ID]'] = 'WEB';
 	$urlParamsArr['FIELDS[CONTACT_ID]'] = json_decode($res_contact)->result;
-	$res_deal = sendB24('crm.deal.add.json', $urlParamsArr);
+	//$urlParamsArr['FIELDS[ASSIGNED_BY_ID]'] = 22; // ответственный
+	$res_deal = sendB24('crm.'.$ENTITY_TYPE.'.add.json', $urlParamsArr);
 
 
 	$comment = str_replace("%0A", "\r\n", $data['COMMENT']);
 	$urlParamsArr = array();
 	$urlParamsArr['fields[ENTITY_ID]'] = json_decode($res_deal)->result;
-	$urlParamsArr['fields[ENTITY_TYPE]'] = 'deal';
+	$urlParamsArr['fields[ENTITY_TYPE]'] = $ENTITY_TYPE;
 	$urlParamsArr['fields[COMMENT]'] = $comment;
 	sendB24('crm.timeline.comment.add', $urlParamsArr);
 
