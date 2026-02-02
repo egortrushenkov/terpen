@@ -14,7 +14,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 
-//use \lib\Kit;
 ?>
 <nav class="flex flex-row gap-2 mb-5 sm:flex-col">
 	<?if (!empty($arResult)):?>
@@ -22,11 +21,7 @@ $this->setFrameMode(true);
 			<?$css = ($arItem["SELECTED"]) ? '' : ' opacity-20';?>
 			<a class="sm:justify-start px-2 sm:px-4 btn btn-fill btn-lg gap-2 flex-grow sm:flex-grow-0 <?= ($arItem["SELECTED"]) ? 'btn-primary pointer-events-none' : 'btn-grey dark:bg-white/10 dark:hover:bg-white/30 text-black dark:text-white' ?>"
 			   data-waved="dark" draggable="false" href="<?= $arItem["LINK"] ?>">
-
-				<?Kit::icon( $arItem["ADDITIONAL_LINKS"]['ICON'], 'icon text-2xl'.$css )?>
-				<span class="hidden sm:block">
 					<?= $arItem["TEXT"] ?>
-				</span>
 			</a>
 		<?endforeach?>
 	<?endif?>
