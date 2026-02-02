@@ -14,7 +14,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 
-use \lib\Kit;
+//use \lib\Kit;
 ?>
 <nav class="flex flex-row gap-2 mb-5 sm:flex-col">
 	<?if (!empty($arResult)):?>
