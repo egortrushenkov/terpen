@@ -47,14 +47,7 @@ class KitTPL
         return $data;
     }
 
-    private static function _icon($json)
-    {
-        ?>
-        <svg class="<?= $json['className'] ?>" <?= $json['data'] ?>>
-            <use xlink:href="<?= SITE_TEMPLATE_PATH ?>/img/icons.svg#<?= $json['id'] ?>"></use>
-        </svg>
-        <?php
-    }
+     
 
 	private static function _loader(){
 		?>
