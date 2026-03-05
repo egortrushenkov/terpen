@@ -15,14 +15,12 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 $this->setFrameMode(true);
 
 ?>
-<nav class="flex flex-row gap-2 mb-5 sm:flex-col">
-	<?if (!empty($arResult)):?>
-		<?foreach($arResult as $arItem):?>
-			<?$css = ($arItem["SELECTED"]) ? '' : ' opacity-20';?>
-			<a class="sm:justify-start px-2 sm:px-4 btn btn-fill btn-lg gap-2 flex-grow sm:flex-grow-0 <?= ($arItem["SELECTED"]) ? 'btn-primary pointer-events-none' : 'btn-grey dark:bg-white/10 dark:hover:bg-white/30 text-black dark:text-white' ?>"
-			   data-waved="dark" draggable="false" href="<?= $arItem["LINK"] ?>">
-					<?= $arItem["TEXT"] ?>
-			</a>
-		<?endforeach?>
-	<?endif?>
+
+<nav class="hidden xl:flex items-center gap-10 order-3">
+    <?if (!empty($arResult)):?>
+        <?foreach($arResult as $arItem):?>
+            <?$css = ($arItem["SELECTED"]) ? '' : ' opacity-20';?>
+            <a class="btn btn-primary text-black rounded-md min-w-max p-2 <%= data.title === item ? 'opacity-50 pointer-events-none' : null %>" data-waved="dark" draggable="false" href="<?= $arItem["LINK"] ?>"><?= $arItem["TEXT"] ?></a>
+        <?endforeach?>
+    <?endif?>
 </nav>

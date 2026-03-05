@@ -19,6 +19,15 @@ class KitTPL
         }
     }
 
+    public static function _icon($json)
+    {
+        ?>
+            <svg class="<?= $json['className'] ?>" <?= $json['data'] ?>>
+                <use href="<?=SITE_TEMPLATE_PATH?>/img/icons.svg#<?= $json['id'] ?>"></use>
+            </svg>
+        <?php
+    }
+
 	public static function parseStringToObject($input)
     {
         // Приводим строку к валидному JSON
@@ -59,11 +68,11 @@ class KitTPL
 		<?php
 	}
 
-	private static function _title($json){
-		?>
-		<h2 class="font-bold uppercase text-2.5xl sm:text-4xl lg:text-title <?= $json['className'] ?>" <?= $json['data'] ?>><?= $json['text'] ?></h2>
-		<?php
-	}
+    private static function _title($json) {
+        ?>
+        <h1 class="font-alt font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-title [&>span]:inline-block [&>span]:rounded-full [&>span]:border sm:[&>span]:border-2 lg:[&>span]:border-4 [&>span]:border-solid [&>span]:border-primary [&>span]:p-2 sm:[&>span]:p-4 lg:[&>span]:p-6 <?= $json['className'] ?>" <?= $json['data'] ?> <?= $json['text'] ?></h1>
+        <?php
+    }
 
 	private static function _picture($json){
 		$src = $json['src'];
@@ -107,6 +116,8 @@ class KitTPL
 		</picture>
 		<?php
 	}
+
+
 
 	private static function _preloader(){
 		?><div class="preloader"></div><?php
