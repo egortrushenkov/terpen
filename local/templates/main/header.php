@@ -2,7 +2,7 @@
 
 <?
 	use lib\Kit;
-	//use Bitrix\Main\Config\Option;
+	use Bitrix\Main\Config\Option;
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +37,7 @@
             <button class="btn btn-primary xl:hidden text-black rounded-md order-2 sm:order-1" data-sidebar-open="menu" data-waved="dark">
                 <?php \lib\KitTPL::icon("{id: 'burger', className: 'icon text-3xl', data: null}");?>
             </button>
-            <a class="shrink-0 order-1 sm:order-2 w-32 sm:w-40 xxl:w-64" draggable="false" href="">
+            <a class="shrink-0 order-1 sm:order-2 w-32 sm:w-40 xxl:w-64" draggable="false" href="/">
                 <?php \lib\KitTPL::picture("{src: '/img/pictures/logo', format: 'svg', className: 'block w-full', data: null}");?>
             </a>
             <?$APPLICATION->IncludeComponent("bitrix:menu","custom",Array(
@@ -53,7 +53,7 @@
                             "MENU_CACHE_GET_VARS" => ""
                     )
             );?>
-            <a class="btn btn-primary btn-fill btn-lg hidden sm:flex xxl:btn-xxl xxl:text-xl order-4" data-fancybox-form data-waved="light" draggable="false" href="/dialogs/dialog-feedback.html">Связаться с нами</a>
+            <a class="btn btn-primary btn-fill btn-lg hidden sm:flex xxl:btn-xxl xxl:text-xl order-4" data-fancybox-form data-waved="light" draggable="false" href="../../../ajax/dialogs/dialog-feedback.php">Связаться с нами</a>
         </header>
 
         <!-- Меню -->
@@ -82,16 +82,16 @@
                         )
                 );?>
                 <div class="flex mt-auto">
-                    <a class="btn btn-primary btn-fill btn-lg w-full" data-fancybox-form data-waved="light" draggable="false" href="/dialogs/dialog-feedback.html">Связаться с нами</a>
+                    <a class="btn btn-primary btn-fill btn-lg w-full" data-fancybox-form data-waved="light" draggable="false" href="/ajax/dialogs/dialog-feedback.php">Связаться с нами</a>
                 </div>
                 <div class="flex items-center gap-7">
-                    <a class="btn btn-white rounded-xl" data-waved="light" draggable="false" href="" target="_blank">
+                    <a class="btn btn-white rounded-xl" data-waved="light" draggable="false" href="<?=Option::get("stdkit.settings", "max");?>" target="_blank">
                         <?php \lib\KitTPL::picture("{src: '/img/pictures/max', format: 'svg', className: 'icon text-5xl', data: null}");?>
                     </a>
-                    <a class="btn btn-white rounded-xl" data-waved="light" draggable="false" href="" target="_blank">
+                    <a class="btn btn-white rounded-xl" data-waved="light" draggable="false" href="<?=Option::get("stdkit.settings", "whatsapp");?>" target="_blank">
                         <?php \lib\KitTPL::picture("{src: '/img/pictures/whatsapp', format: 'svg', className: 'icon text-5xl', data: null}");?>
                     </a>
-                    <a class="btn btn-white rounded-full" data-waved="light" draggable="false" href="" target="_blank">
+                    <a class="btn btn-white rounded-full" data-waved="light" draggable="false" href="<?=Option::get("stdkit.settings", "telegram");?>" target="_blank">
                         <?php \lib\KitTPL::picture("{src: '/img/pictures/telegram', format: 'svg', className: 'icon text-5xl', data: null}");?>
                     </a>
                 </div>

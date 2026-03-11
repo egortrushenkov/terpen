@@ -1,0 +1,60 @@
+<%
+  var icon = _.template(require('../components/icon.html').default)
+  var picture = _.template(require('../components/picture.html').default)
+  var loader = _.template(require('../components/loader.html').default)({icon, className: null})
+%>
+
+<dialog class="w-full max-w-lg lg:max-w-4xl bg-grey text-dark rounded-3xl py-6 lg:py-10 px-4 lg:px-7">
+  <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6 mb-7">
+    <div class="shrink-0 w-full max-w-48">
+      <div class="pack pack-xl bg-white rounded-2xl">
+        <%= loader %>
+        <%= picture({src: '/img/pictures/test', format: 'jpg', className: 'image rounded-inherit', data: null}) %>
+      </div>
+    </div>
+    <div class="grow">
+      <h2 class="font-alt font-bold text-2xl lg:text-3xl">
+        Валентина Ивановна
+      </h2>
+      <h3 class="font-alt font-bold lg:text-lg">
+        Главный врач больницы
+      </h3>
+      <h4 class="font-alt font-bold text-lg lg:text-xl underline underline-offset-4">
+        67 лет
+      </h4>
+    </div>
+  </div>
+  <div class="description text-sm lg:text-base">
+    <h4>
+      1. Общие положения
+    </h4>
+    <br>
+    <p>
+      <b>Lorem</b> ipsum dolor sit amet consectetur adipisicing elit. Magni quas iste harum delectus similique provident. Quo deserunt rem veritatis commodi molestiae eum perspiciatis sed, maiores tempora exercitationem aliquid perferendis corrupti?
+    </p>
+    <br>
+    <ul>
+      <li>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, quisquam? Ex quisquam sapiente, debitis sed quod provident autem rem, maxime iusto commodi nulla architecto aut aperiam quibusdam. Aut, ab voluptatum?
+      </li>
+      <li>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, quisquam? Ex quisquam sapiente, debitis sed quod provident autem rem, maxime iusto commodi nulla architecto aut aperiam quibusdam. Aut, ab voluptatum?
+      </li>
+      <li>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, quisquam? Ex quisquam sapiente, debitis sed quod provident autem rem, maxime iusto commodi nulla architecto aut aperiam quibusdam. Aut, ab voluptatum?
+      </li>
+    </ul>
+    <br>
+    <ol>
+      <li>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, quisquam? Ex quisquam sapiente, debitis sed quod provident autem rem, maxime iusto commodi nulla architecto aut aperiam quibusdam. Aut, ab voluptatum?
+      </li>
+      <li>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, quisquam? Ex quisquam sapiente, debitis sed quod provident autem rem, maxime iusto commodi nulla architecto aut aperiam quibusdam. Aut, ab voluptatum?
+      </li>
+      <li>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, quisquam? Ex quisquam sapiente, debitis sed quod provident autem rem, maxime iusto commodi nulla architecto aut aperiam quibusdam. Aut, ab voluptatum?
+      </li>
+    </ol>
+  </div>
+</dialog>

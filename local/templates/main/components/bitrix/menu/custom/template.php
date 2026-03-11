@@ -19,8 +19,7 @@ $this->setFrameMode(true);
 <nav class="hidden xl:flex items-center gap-10 order-3">
     <?if (!empty($arResult)):?>
         <?foreach($arResult as $arItem):?>
-            <?$css = ($arItem["SELECTED"]) ? '' : ' opacity-20';?>
-            <a class="btn btn-primary text-black rounded-md min-w-max p-2 <%= data.title === item ? 'opacity-50 pointer-events-none' : null %>" data-waved="dark" draggable="false" href="<?= $arItem["LINK"] ?>"><?= $arItem["TEXT"] ?></a>
+            <a class="btn btn-primary text-black rounded-md min-w-max p-2 <?= $arItem['SELECTED'] ? 'opacity-50 pointer-events-none' : null ?>" data-waved="dark" draggable="false" href="<?= $arItem["LINK"] ?>"><?= $arItem["TEXT"] ?></a>
         <?endforeach?>
     <?endif?>
 </nav>

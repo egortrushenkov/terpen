@@ -1,0 +1,51 @@
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+
+use lib\Kit;
+use Bitrix\Main\Config\Option;
+
+?>
+<dialog class="w-full max-w-lg bg-grey text-dark rounded-3xl py-10 px-4 sm:px-7">
+    <h2 class="font-alt font-bold uppercase text-2xl sm:text-3xl mb-1">
+        Оставьте заявку
+    </h2>
+    <p class="sm:text-lg opacity-70 mb-5">
+        и наш менеджер свяжется с Вами
+    </p>
+    <form data-form="submit" data-anim>
+        <input type="hidden" value="Тема" name="theme">
+        <div class="flex flex-col gap-5 mb-7 sm:mb-10">
+            <label data-label>
+                <div class="relative">
+                    <input class="input input-dark input-lg sm:input-xxl bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0"
+                           data-input="name" type="text" placeholder="Имя" name="name">
+                    <?php \lib\KitTPL::error("{text: 'Введите ваше имя'}"); ?>
+                </div>
+            </label>
+            <label data-label>
+                <div class="relative">
+                    <input class="input input-dark input-lg sm:input-xxl bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0"
+                           data-input="tel" type="tel" placeholder="Номер телефона" name="tel">
+                    <?php \lib\KitTPL::error("{text: 'Введите ваш номер'}");?>
+                </div>
+            </label>
+            <label data-label>
+                <div class="relative">
+                    <input class="input input-dark input-lg sm:input-xxl bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0"
+                           data-input="email" type="text" placeholder="Почта" name="email">
+                    <?php \lib\KitTPL::error("{text: 'Введите корректный адрес'}");?>
+                </div>
+            </label>
+        </div>
+        <button class="btn btn-dark btn-fill btn-lg sm:btn-xl sm:text-xl" data-waved="light" type="submit">Отправить
+        </button>
+        <div class="flex sm:items-center mt-5">
+            <input class="switch switch-checkbox mr-2" data-toggle-submit type="checkbox">
+            <p class="text-xs opacity-60">
+                Согласие на <a class="underline underline-offset-4" data-fancybox-dialog draggable="false"
+                               href="/ajax/dialogs/dialog-politics.php">обработку персональных данных</a> на
+                условиях <a class="underline underline-offset-4" draggable="false" href="" target="_blank">политики
+                    конфиденциальности</a>
+            </p>
+        </div>
+    </form>
+</dialog>

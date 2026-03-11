@@ -2,6 +2,9 @@
 
 namespace lib;
 
+use lib\Kit;
+use Bitrix\Main\Config\Option;
+
 class KitTPL
 {
     public static function __callStatic($method, $args)
@@ -17,6 +20,43 @@ class KitTPL
         } else {
             throw new \BadMethodCallException("Метод {$method} не найден в " . __CLASS__);
         }
+    }
+
+    public static function _primal($json) {
+        ?>
+        <section class="container md:pt-16 xl:px-14">
+            <?php \lib\KitTPL::title("{text: '".$json['text']."', className: 'uppercase break-words mb-6 sm:mb-9 lg:mb-12 anim anim-right duration-500', data: 'data-anim'}");?>
+            <div class="pack pack-xl sm:pack-md lg:pack-xs xl:pack-[35] bg-white rounded-3xl mb-6 sm:mb-8 lg:mb-10">
+                <?php \lib\KitTPL::loader();?>
+                <?php \lib\KitTPL::picture("{src: '/img/pictures/test', format: 'jpg', className: 'image rounded-inherit', data: null}");?>
+                <div class="flex items-end absolute inset-0 rounded-inherit p-4 sm:p-7 lg:p-10">
+                    <div class="grid md:grid-cols-2 gap-2 md:gap-5 lg:gap-8 w-full xl:max-w-4xl anim anim-up duration-500" data-anim>
+                        <?  foreach(['С заботой о вас', 'О вашем здоровье'] as $item ): ?>
+                            <div class="flex items-center justify-center bg-white/20 backdrop-blur-2xl rounded-full border border-solid border-white h-12 md:h-16 px-4">
+                                <span class="uppercase text-white text-center md:text-xl"><?= $item ?></span>
+                            </div>
+                        <? endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-2 md:gap-5 lg:gap-8 w-full xl:max-w-4xl xl:ml-auto anim anim-up duration-500" data-anim>
+                <a class="btn btn-dark btn-fill btn-lg sm:btn-xl uppercase sm:text-xl" data-fancybox-form data-waved="light" draggable="false" href="/dialogs/dialog-feedback.html">
+                    Заказать устройство
+                    <?php \lib\KitTPL::icon("{id: 'arrow-right', className: 'icon text-3xl sm:text-4xl -rotate-45 ml-2', data: null}");?>
+                </a>
+                <a class="btn btn-dark btn-contur btn-lg sm:btn-xl uppercase sm:text-xl" data-waved="dark" draggable="false" href="">
+                    Читать статьи
+                    <?php \lib\KitTPL::icon("{id: 'arrow-right', className: 'icon text-3xl sm:text-4xl -rotate-45 ml-2', data: null}");?>
+                </a>
+            </div>
+        </section>
+        <?php
+    }
+
+    public static function _subtitle($json) {
+        ?>
+            <h2 class="font-alt font-bold text-xl sm:text-2xl lg:text-3xl <?= $json['className'] ?>" <?= $json['data'] ?>> <?= $json['text'] ?></h2>
+        <?php
     }
 
     public static function _icon($json)
@@ -70,7 +110,7 @@ class KitTPL
 
     private static function _title($json) {
         ?>
-        <h1 class="font-alt font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-title [&>span]:inline-block [&>span]:rounded-full [&>span]:border sm:[&>span]:border-2 lg:[&>span]:border-4 [&>span]:border-solid [&>span]:border-primary [&>span]:p-2 sm:[&>span]:p-4 lg:[&>span]:p-6 <?= $json['className'] ?>" <?= $json['data'] ?> <?= $json['text'] ?></h1>
+        <h1 class="font-alt font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-title [&>span]:inline-block [&>span]:rounded-full [&>span]:border sm:[&>span]:border-2 lg:[&>span]:border-4 [&>span]:border-solid [&>span]:border-primary [&>span]:p-2 sm:[&>span]:p-4 lg:[&>span]:p-6 <?= $json['className'] ?>" <?= $json['data'] ?>> <?= $json['text'] ?> </h1>
         <?php
     }
 
@@ -117,14 +157,79 @@ class KitTPL
 		<?php
 	}
 
+    private static function _error($json) {
+        ?>
+        <span class="flex items-center absolute -bottom-4 left-0 right-0 text-second text-xs opacity-0 invisible transition-opacity h-4" data-error><?= $json['text'] ?></span>
+        <?php
+    }
 
+    private static function _map()
+    {
+        ?>
+        <section class="relative overflow-hidden bg-white h-96">
+            <?php \lib\KitTPL::loader();?>
+            <div class="absolute inset-0" data-yandex-map="45.03191007458623,38.921171499999936" data-src="<?=SITE_TEMPLATE_PATH?>/img/pictures/point.svg"></div>
+        </section>
+        <?php
+    }
+
+    private static function _feedback() {
+        ?>
+        <section class="container overflow-hidden pt-0 xl:px-14">
+            <?php \lib\KitTPL::subtitle("{text: 'Остались вопросы?', className: 'uppercase mb-6 sm:mb-9 lg:mb-12 anim anim-right duration-500', data: 'data-anim'}");?>
+            <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-8">
+                <form class="w-full xl:max-w-5xl anim anim-right duration-500" data-form="submit" data-anim>
+                    <input type="hidden" value="Тема" name="theme">
+                    <div class="flex flex-col gap-5 mb-7 sm:mb-10">
+                        <label data-label>
+                            <div class="relative">
+                                <input class="input input-dark input-lg sm:input-xxl bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0" data-input="name" type="text" placeholder="Имя" name="name">
+                                <?php \lib\KitTPL::error("{text: 'Введите ваше имя'}");?>
+                            </div>
+                        </label>
+                        <label data-label>
+                            <div class="relative">
+                                <input class="input input-dark input-lg sm:input-xxl bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0" data-input="tel" type="tel" placeholder="Номер телефона" name="tel">
+                                <?php \lib\KitTPL::error("{text: 'Введите ваш номер'}");?>
+                            </div>
+                        </label>
+                        <label data-label>
+                            <div class="relative">
+                                <input class="input input-dark input-lg sm:input-xxl bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0" data-input="email" type="text" placeholder="Почта" name="email">
+                                <?php \lib\KitTPL::error("{text: 'Введите корректный адрес'}");?>
+                            </div>
+                        </label>
+                        <label data-label>
+                            <div class="relative">
+                                <textarea class="input input-dark input-lg bg-transparent sm:text-xl rounded-none border-t-0 border-x-0 focus:shadow-none px-0 h-20" data-input="text" placeholder="Ваш вопрос" name="text"></textarea>
+                                <?php \lib\KitTPL::error("{text: 'Заполните это поле'}");?>
+                            </div>
+                        </label>
+                    </div>
+                    <button class="btn btn-dark btn-fill btn-lg sm:btn-xl sm:text-xl w-full lg:max-w-xl" data-waved="light" type="submit">Отправить анкету</button>
+                    <div class="flex sm:items-center mt-5">
+                        <input class="switch switch-checkbox mr-2" data-toggle-submit type="checkbox">
+                        <p class="text-xs opacity-60">
+                            Согласие на <a class="underline underline-offset-4" data-fancybox-dialog draggable="false" href="/dialogs/dialog-politics.html">обработку персональных данных</a> на условиях <a class="underline underline-offset-4" draggable="false" href="" target="_blank">политики конфиденциальности</a>
+                        </p>
+                    </div>
+                </form>
+                <div class="flex flex-col gap-5 w-full xl:max-w-xl anim anim-left duration-500" data-anim>
+                    <a class="btn btn-dark btn-contur btn-lg sm:btn-xl justify-start text-left sm:text-xl rounded-none sm:rounded-none border-t-0 border-x-0 px-0 sm:px-0" data-waved="dark" draggable="false" href="<?=Option::get("stdkit.settings", "max");?>" target="_blank">MAX</a>
+                    <a class="btn btn-dark btn-contur btn-lg sm:btn-xl justify-start text-left sm:text-xl rounded-none sm:rounded-none border-t-0 border-x-0 px-0 sm:px-0" data-waved="dark" draggable="false" href="<?=Option::get("stdkit.settings", "whatsapp");?>" target="_blank">WhatsApp</a>
+                    <a class="btn btn-dark btn-contur btn-lg sm:btn-xl justify-start text-left sm:text-xl rounded-none sm:rounded-none border-t-0 border-x-0 px-0 sm:px-0" data-waved="dark" draggable="false" href="<?=Option::get("stdkit.settings", "telegram");?>" target="_blank">Telegram</a>
+                </div>
+            </div>
+        </section>
+        <?php
+    }
 
 	private static function _preloader(){
-		?><div class="preloader"></div><?php
-	}
-
-	private static function _fish(){
-		?><div class="absolute inset-0 pointer-events-none" data-fish-wrapper></div><?php
+		?>
+        <div class="w-64 animate-pulse">
+            <?php \lib\KitTPL::picture("{src: '/img/pictures/logo', format: 'svg', className: 'block w-full', data: null}");?>
+        </div>
+        <?php
 	}
 
 	private static function _swiperButtonPrev($json){
@@ -146,259 +251,6 @@ class KitTPL
 		<?php
 	}
 
-	private static function _tabs($json) {
-		?>
-		<div class="sticky z-10 top-[73px] md:top-[102px]" data-filtering-tabs data-slider="tabs">
-			<div class="px-4 -mx-4 swiper sm:mx-0 sm:px-0" data-slider-swiper="tabs">
-				<div class="swiper-wrapper">
-					<? for ($i = 0; $i < 5; $i++) {
-						?>
-						<div class="swiper-slide">
-							<a class="text-black btn btn-akva btn-fill btn-xl btn-light sm:btn-xxl font-normal text-lg sm:text-1.5xl px-2 active:transform-none [&.filtering-category]:text-white [&.filtering-category]:font-semibold [&.filtering-category]:btn-second [&.filtering-category]:btn-gradient [&.filtering-category]:pointer-events-none"
-							   data-filtering-category="tabs" data-filtering-value="<?=$i?>" data-scroll data-waved="dark"
-							   draggable="false" href="#tabs">
-								2<?=$i?> октября
-							</a>
-						</div>
 
-						<?
-					}?>
-				</div>
-			</div>
-			<?self::_swiperButtonPrev(self::parseStringToObject("{value: 'tabs'}"));?>
-			<?self::_swiperButtonNext(self::parseStringToObject("{value: 'tabs'}"));?>
-		</div>
-		<?php
-	}
 
-	private static function _materials($json)
-	{
-		?>
-		<div class="mt-10">
-			<? for ($i = 0; $i < 5; $i++) {
-				?>
-					<div data-filtering-card="tabs" data-filtering-value="<?=$i?>">
-						<? if ($json['status']) { ?>
-						<h3 class="font-bold mb-8 text-2.5xl sm:text-4xl lg:text-title text-primary">
-							2<?=$i?> октября (День <?=$i?>)
-						</h3>
-						<? } ?>
-						<div class="flex flex-col gap-2 sm:gap-4">
-							<% for (var j = 0; j < 3; j++) { %>
-							<div class="border border-solid shadow-md border-grey card" id="copy-<?=$i?>-<%= j %>">
-								<div class="px-4 py-6 sm:px-6 lg:px-8 sm:py-8 card-content">
-									<div class="flex flex-wrap items-center gap-2 sm:gap-4">
-										<div
-											class="flex items-center justify-center px-6 border border-solid rounded-full h-9 sm:h-10 sm:px-8 border-primary/30 shrink-0">
-											<span class="text-sm font-semibold sm:text-base text-primary">12:30 - 14:50</span>
-										</div>
-										<div
-											class="flex items-center justify-center px-4 border border-solid rounded-full h-9 sm:h-10 sm:px-6 border-grey shrink-0">
-											<span class="text-sm sm:text-base">Конференц-зал</span>
-										</div>
-										<div
-											class="flex items-center justify-center rounded-full size-9 sm:size-10 shrink-0 bg-aqua/15">
-											<?self::_icon(self::parseStringToObject("{id: 'star', className: 'icon text-aqua text-1.5xl sm:text-2xl', data: null}"));?>
-										</div>
-										<div
-											class="flex items-center justify-center border border-solid rounded-full size-9 sm:size-10 shrink-0 border-grey">
-											<?self::_icon(self::parseStringToObject("{id: 'headphones', className: 'icon text-1.5xl sm:text-2xl', data: null}"));?>
-										</div>
-										<div class="relative w-9 sm:w-10 shrink-0"
-											 data-copy="http://localhost:9000/index.html#copy-<?=$i?>-<%= j %>">
-											<button class="text-black rounded-full btn btn-grey btn-contur size-10"
-													data-copy-button data-waved="dark">
-												<?self::_icon(self::parseStringToObject("{id: 'link', className: 'icon text-1.5xl sm:text-2xl', data: null}"));?>
-											</button>
-											<span
-												class="absolute invisible text-xs duration-300 -translate-x-1/2 opacity-0 pointer-events-none left-1/2 top-full text-aqua"
-												data-copy-result>Скопировано!</span>
-										</div>
-										<div
-											class="flex items-center justify-between pl-1 pr-6 text-sm border border-solid rounded-full h-9 sm:h-10 shrink-0 border-grey sm:text-base">
-											<div
-												class="flex items-center justify-center mr-3 rounded-full size-7 sm:size-8 shrink-0 bg-aqua">
-												<?self::_icon(self::parseStringToObject("{id: 'online', className: 'icon text-white text-1.5xl sm:text-2xl', data: null}"));?>
-											</div>
-											Online
-										</div>
-										<a class="pl-1 pr-6 text-sm font-normal text-black rounded-full btn btn-aqua h-9 sm:h-10 shrink-0 bg-aqua/15 sm:text-base"
-										   data-waved="dark" draggable="false" href="">
-											<div
-												class="flex items-center justify-center mr-3 rounded-full size-7 sm:size-8 shrink-0 bg-aqua">
-												<?self::_icon(self::parseStringToObject("{id: 'notes', className: 'icon text-white text-1.5xl sm:text-2xl', data: null}"));?>
-											</div>
-											Материалы
-										</a>
-									</div>
-									<h4 class="mt-3 text-xl font-semibold sm:mt-4 sm:text-2xl lg:text-3xl">
-										Кейс-сессия “Международная кооперация и инновации на рынке термочувствительных грузов”
-									</h4>
-									<p class="mt-5 font-semibold sm:text-lg sm:mt-6 lg:text-xl">
-										Пленарная сессия “Международная кооперация и инновации на рынке термочувствительных
-										грузов”
-									</p>
-									<div class="mt-3 sm:mt-6 group/accordion" data-accordion>
-										<div data-accordion-content>
-											<div class="pb-4 description text-sm/normal sm:text-base/normal">
-												<p>
-													<b>Ключевые вопросы:</b>
-												</p>
-												<br>
-												<ol>
-													<li>Роль и место повестки продуктовой безопасности во внутренней и внешней
-														политике России.
-													</li>
-													<li>Императивы развития перевозок скоропорта в новых экономических
-														условиях.
-													</li>
-													<li>Государственные меры поддержки развития экспорта российской продукции
-														АПК на рынки АТР и ЮВА.
-													</li>
-													<li>Инвестиционные проекты в рыбной отрасли.</li>
-													<li>Развитие инфраструктуры и технологий для обеспечения НХЦ на торговых
-														маршрутах международного рынка скоропортящейся продукции.
-													</li>
-													<li>Фарма-рынок: интеграция производства и логистики.</li>
-													<li>Подготовка кадров для холодильной отрасли.</li>
-												</ol>
-												<br>
-												<ul>
-													<li>Роль и место повестки продуктовой безопасности во внутренней и внешней
-														политике России.
-													</li>
-													<li>Императивы развития перевозок скоропорта в новых экономических
-														условиях.
-													</li>
-													<li>Государственные меры поддержки развития экспорта российской продукции
-														АПК на рынки АТР и ЮВА.
-													</li>
-													<li>Инвестиционные проекты в рыбной отрасли.</li>
-													<li>Развитие инфраструктуры и технологий для обеспечения НХЦ на торговых
-														маршрутах международного рынка скоропортящейся продукции.
-													</li>
-													<li>Фарма-рынок: интеграция производства и логистики.</li>
-													<li>Подготовка кадров для холодильной отрасли.</li>
-												</ul>
-												<br>
-												<p>
-													Китай – крупнейший стратегический партнёр России, в том числе и в области
-													рыбной промышленности (поставка специализированного оборудования и
-													комплектующих, взаимная торговля рыбой и морепродуктами).
-													<br><br>
-													В последнее время также появляется всё больше примеров работ китайских
-													судостроителей для российских судовладельцев промыслового флота. Во всех
-													известных авторам случаях постройка велась по типовым китайским проектам.
-													Такое решение имеет как свои плюсы (например, за счёт массовости и
-													дешевизны), так и минусы, которые стоят отдельных обсуждений.
-													<br><br>
-													В нашей же презентации будет раскрыт уникальный опыт постройки рыболовных
-													судов в Китае по передовым зарубежным проектам. Будут рассмотрены ключевые
-													этапы — от проведения тендера между заводами и проработки проекта до
-													завершения постройки и дальнейшей эксплуатации.
-												</p>
-											</div>
-										</div>
-										<button class="py-1 btn btn-second btn-lines" data-accordion-toggle data-waved="light">
-											<span
-												class="group-[[data-accordion=active]]/accordion:hidden">Показать полностью</span>
-											<span class="hidden group-[[data-accordion=active]]/accordion:block">Скрыть</span>
-											<?self::_icon(["id"=>'arrow-right', "className"=>'icon ml-2 ease-linear text-sm duration-300 rotate-90 group-[[data-accordion=active]]/accordion:-rotate-90', "data"=>null]);?>
-										</button>
-									</div>
-									<div class="flex flex-col gap-6 mt-6">
-										<% for (var k = 0; k < 2; k++) { %>
-										<div>
-											<h4 class="mb-4 text-xl font-semibold">
-												Спикеры
-											</h4>
-											<div class="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-6">
-												<% for (var m = 0; m < 4; m++) { %>
-												<div class="flex items-center">
-													<div
-														class="relative mr-3 overflow-hidden rounded-full size-14 bg-sea shrink-0">
-														<?=self::_loader()?>
-														<?=self::_picture(self::parseStringToObject("{src: '".SITE_TEMPLATE_PATH."/img/pictures/test', format: 'jpg', className: 'image rounded-full', data: null}"))?>
-													</div>
-													<div>
-														<h5 class="text-sm font-semibold sm:text-base">
-															Дмитрий Патрушев
-														</h5>
-														<p class="mt-1 text-xs/normal sm:text-sm/normal opacity-60">
-															Министр сельского хозяйства Российской Федерации
-														</p>
-													</div>
-												</div>
-												<% } %>
-											</div>
-										</div>
-										<% } %>
-									</div>
-									<div class="flex flex-col gap-6 mt-6 md:flex-row md:flex-wrap lg:gap-14">
-										<% for (var k = 0; k < 2; k++) { %>
-										<div>
-											<h4 class="mb-4 text-xl font-semibold">
-												Организаторы
-											</h4>
-											<div class="grid grid-cols-2 gap-4 md:flex md:flex-wrap">
-												<% for (var m = 0; m < (k === 0 ? 4 : 2); m++) { %>
-												<a class="md:w-40 md:shrink-0" draggable="false" href="" target="_blank">
-													<div
-														class="duration-200 border border-solid pack pack-md rounded-2xl hover:bg-grey/20 border-grey"
-														data-waved="dark">
-														<?=self::_picture(self::parseStringToObject("{src: '". SITE_TEMPLATE_PATH."/img/pictures/logo-aqua', format: 'svg', className: 'image object-scale-down p-2', data: null}"))?>
-													</div>
-												</a>
-												<% } %>
-											</div>
-										</div>
-										<% } %>
-									</div>
-								</div>
-							</div>
-							<% } %>
-						</div>
-					</div>
-				<?
-			}?>
-			<? if ($json['status']) { ?>
-			<ul class="flex flex-col gap-2 mt-8">
-				<li class="flex items-center">
-					<div
-						class="flex items-center justify-center mr-2 rounded-full size-9 sm:size-10 bg-aqua/15 shrink-0">
-						<?self::_icon(self::parseStringToObject("{id: 'star', className: 'icon text-aqua text-1.5xl sm:text-2xl', data: null}"));?>
-					</div>
-					<span class="text-sm sm:text-base">Главное событие</span>
-				</li>
-				<li class="flex items-center">
-					<div
-						class="flex items-center justify-center mr-2 border border-solid rounded-full size-9 sm:size-10 border-grey shrink-0">
-						<?self::_icon(self::parseStringToObject("{id: 'headphones', className: 'icon text-1.5xl sm:text-2xl', data: null}"));?>
-					</div>
-					<span class="text-sm sm:text-base">Мероприятия с синхронным переводом</span>
-				</li>
-				<li class="flex items-center">
-					<div
-						class="flex items-center justify-center mr-2 border border-solid rounded-full size-9 sm:size-10 border-grey shrink-0">
-						<?self::_icon(self::parseStringToObject("{id: 'link', className: 'icon text-1.5xl sm:text-2xl', data: null}"));?>
-					</div>
-					<span class="text-sm sm:text-base">Ссылка</span>
-				</li>
-				<li class="flex items-center">
-					<div class="flex items-center justify-center mr-2 rounded-full size-9 sm:size-10 bg-aqua shrink-0">
-						<?self::_icon(self::parseStringToObject("{id: 'online', className: 'icon text-white text-1.5xl sm:text-2xl', data: null}"));?>
-					</div>
-					<span class="text-sm sm:text-base">Online</span>
-				</li>
-				<li class="flex items-center">
-					<div class="flex items-center justify-center mr-2 rounded-full size-9 sm:size-10 bg-aqua shrink-0">
-						<?self::_icon(self::parseStringToObject("{id: 'notes', className: 'icon text-white text-1.5xl sm:text-2xl', data: null}"));?>
-					</div>
-					<span class="text-sm sm:text-base">Материалы</span>
-				</li>
-			</ul>
-			<? } ?>
-		</div>
-		<?php
-	}
 }

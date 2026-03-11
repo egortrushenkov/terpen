@@ -1,0 +1,10 @@
+<%
+  var picture = _.template(require('../components/picture.html').default)
+  var preloader = _.template(require('../components/preloader.html').default)({picture})
+%>
+
+<dialog class="w-full max-w-max bg-transparent p-0">
+  <div class="flex items-center justify-center">
+    <%= preloader %>
+  </div>
+</dialog>

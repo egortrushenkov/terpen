@@ -2,7 +2,7 @@
 
 <?
 	use lib\Kit;
-	//use Bitrix\Main\Config\Option;
+	use Bitrix\Main\Config\Option;
 ?>
 
 
@@ -17,10 +17,10 @@
             </h4>
             <ul class="flex flex-col gap-2 sm:gap-4 sm:text-xl lg:text-2xl">
                 <li>
-                    Горячая линия: <a class="underline-offset-4 hover:underline" draggable="false" href="tel: 8 800 323 40 23">8 800 323 40 23</a>
+                    Горячая линия: <a class="underline-offset-4 hover:underline" draggable="false" href="tel: <?=Option::get("stdkit.settings", "main_phone");?>"><?=Option::get("stdkit.settings", "main_phone");?></a>
                 </li>
                 <li>
-                    Почта: <a class="underline-offset-4 hover:underline" draggable="false" href="mailto: support.terpen@mail.ru">support.terpen@mail.ru</a>
+                    Почта: <a class="underline-offset-4 hover:underline" draggable="false" href="mailto: <?=Option::get("stdkit.settings", "email");?>"><?=Option::get("stdkit.settings", "email");?></a>
                 </li>
             </ul>
         </div>
@@ -28,9 +28,19 @@
             <h4 class="font-normal uppercase text-xl sm:text-2xl mb-4 sm:mb-6">
                 Продукция:
             </h4>
-            <nav class="flex flex-col items-start gap-2 sm:gap-4 sm:text-xl lg:text-2xl">
-                <a class="opacity-45 transition-opacity hover:opacity-100" draggable="false" href="">Главная</a>
-            </nav>
+            <?$APPLICATION->IncludeComponent("bitrix:menu","menu-footer",Array(
+                            "ROOT_MENU_TYPE" => "top",
+                            "MAX_LEVEL" => "2",
+                            "CHILD_MENU_TYPE" => "left",
+                            "USE_EXT" => "N",
+                            "DELAY" => "N",
+                            "ALLOW_MULTI_SELECT" => "N",
+                            "MENU_CACHE_TYPE" => "N",
+                            "MENU_CACHE_TIME" => "3600",
+                            "MENU_CACHE_USE_GROUPS" => "N",
+                            "MENU_CACHE_GET_VARS" => ""
+                    )
+            );?>
         </div>
         <div>
             <h4 class="font-normal uppercase text-xl sm:text-2xl mb-4 sm:mb-6">
@@ -40,12 +50,12 @@
                 <a class="opacity-45 transition-opacity hover:opacity-100" draggable="false" href="">Документы</a>
                 <a class="opacity-45 transition-opacity hover:opacity-100" draggable="false" href="">Сертификация</a>
                 <a class="opacity-45 transition-opacity hover:opacity-100" draggable="false" href="" target="_blank">Политика конфиденциальности</a>
-                <a class="opacity-45 transition-opacity hover:opacity-100" data-fancybox-dialog draggable="false" href="/dialogs/dialog-politics.html">Обработку персональных данных</a>
+                <a class="opacity-45 transition-opacity hover:opacity-100" data-fancybox-dialog draggable="false" href="../../../ajax/dialogs/dialog-politics.php">Обработку персональных данных</a>
             </nav>
         </div>
     </div>
     <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-8">
-        <a class="shrink-0 w-full max-w-52 sm:max-w-72 lg:max-w-md" draggable="false" href="">
+        <a class="shrink-0 w-full max-w-52 sm:max-w-72 lg:max-w-md" draggable="false" href="/">
             <?php \lib\KitTPL::picture("{src: '/img/pictures/logo-white', format: 'svg', className: 'block w-full', data: null}");?>
         </a>
         <div class="flex items-center gap-4 sm:gap-7 lg:gap-10">

@@ -48,16 +48,12 @@
 					/*"Footer",
 					array( "footer_slogan", "Текст в подвале", "", array( "text" ) ),*/
 
-					/*"Соцсети/Мессенджеры",
+					"Соцсети/Мессенджеры",
 					array( "telegram", "Telegram", "", array( "text" ) ),
-					array( "ok", "Odnoklassniki", "", array( "text" ) ),
-					array( "vk", "VK", "", array( "text" ) ),
-					array( "dzen", "Yandex Dzen", "", array( "text" ) ),
-					array( "youtube", "YouTube", "", array( "text" ) ),
-					array( "use_uds", "Использовать UDS", "Y", array( "checkbox" ) ),
-					array( "uds", "UDS", "", array( "text" ) ),
+					array( "whatsapp", "WhatsApp", "", array( "text" ) ),
+					array( "max", "MAX", "", array( "text" ) ),
 
-					"Главная",
+					/*"Главная",
 					array( "main_video", "Видео на главной", "", array( "text" ) ),*/
 				)
 			),

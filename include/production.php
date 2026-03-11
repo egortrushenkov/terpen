@@ -1,8 +1,8 @@
-<? if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)die(); ?>
+<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
 
 <?
-use lib\Kit;
-//use Bitrix\Main\Config\Option;
+    use lib\Kit;
+    //use Bitrix\Main\Config\Option;
 ?>
 
 <section class="container overflow-hidden pt-0 xl:px-14">
